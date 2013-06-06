@@ -1,0 +1,29 @@
+Douglas Bielinski (masc0965)
+Kirankumar Dhakshana (masc0964)
+CS 570, Summer 2013
+Assignment #1, Process Manager
+README
+
+PROCTAB.txt, README, a1.c, makefile, sem
+
+Compile instructions:
+make    	##compiles with cc -o sem a1.c -lrt
+            		##runs the executable sem
+    			##runs cat command on PROCTAB.txt
+	    		##we need -lrt to use semaphore.h
+make n		##same thing as above except it prints line numbers
+make compile	##only compiles with cc -o sem a1.c -lrt
+make clean	##removes PROCTAB.txt and sem
+
+Using the make automatically runs the executable
+This program uses no arguments
+
+We used a for loop for each thread. The semaphore is a global variable.
+We tried to use random numbers to give the threads random workloads using
+the sleep function, but we found out that using sleep in the critical region 
+leads to undesirable results. 
+We found that FILE *fp; can not be a global variable but it must be declared
+for each thread.
+We learned that the process does not wait for the threads to complete.
+It really is a pain to debug something that runs multiple threads.
+We believe our program works correctly because the threads access the critical region in a random order, and a cheap way to tell that they are all printing to the PROCTAB.txt the correct amount of times is that when we run cat -n PROCTAB.txt the last line is labelled line 101, as in it printed the original process ID and then each of the 10 threads printed 10 times for 101 lines.
